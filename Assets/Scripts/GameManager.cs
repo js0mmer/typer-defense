@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour {
     "society", "head", "female", "eager", "heap", "dramatic", "present",
     "sin", "box", "pies", "awesome", "root", "available", "sleet", "wax",
     "boring", "smash", "anger", "tasty", "spare", "tray", "daffy", "scarce",
-    "account", "spot", "thought", "distinct", "nimble", "practise", "cream",
+    "account", "spot", "thought", "distinct", "nimble", "practice", "cream",
     "ablaze", "thoughtless", "love", "verdict", "giant", "entrepreneur",
     "awesome", "undulating", "arid", "pungent", "supercalifragilisticexpialidocious",
     "excellent", "extraordinary", "ordinary", "immediate", "generator", "input",
