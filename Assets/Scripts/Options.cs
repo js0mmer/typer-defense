@@ -7,6 +7,7 @@ public class Options : MonoBehaviour
 {
     public Dropdown resolutionDropdown;
     public Dropdown graphicsDropdown;
+    public Toggle fullscreen;
 
     Resolution[] resolutions;
 
@@ -35,6 +36,8 @@ public class Options : MonoBehaviour
 
         graphicsDropdown.value = QualitySettings.GetQualityLevel();
         graphicsDropdown.RefreshShownValue();
+
+        fullscreen.isOn = Screen.fullScreen;
     }
 
     public void SetQuality(int quality)
