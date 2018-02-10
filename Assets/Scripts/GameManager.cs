@@ -207,6 +207,7 @@ public class GameManager : MonoBehaviour {
 
     public void Back()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene(0);
     }
 
