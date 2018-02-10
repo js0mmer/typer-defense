@@ -26,8 +26,6 @@ public class GameManager : MonoBehaviour {
     public Text score;
     public Text highscore;
     public EventSystem es;
-    public GameObject restartButton;
-    public GameObject quitButton;
     public Image healthBar;
     [HideInInspector]
     public ArrayList enemies;
@@ -143,6 +141,7 @@ public class GameManager : MonoBehaviour {
             }
 
             gameOver.SetActive(true);
+            overlayCanvas.SetActive(false);
         }
     }
 
@@ -209,6 +208,11 @@ public class GameManager : MonoBehaviour {
     public void Back()
     {
         SceneManager.LoadScene(0);
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
     }
 
 }
