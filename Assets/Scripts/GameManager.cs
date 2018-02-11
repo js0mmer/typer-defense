@@ -10,9 +10,9 @@ public class GameManager : MonoBehaviour {
     public GameObject enemy;
     public Vector3 spawnLocation;
 
-    static int health = 100;
+    int health = 100;
     float timeBefore = 0;
-    bool gameEnded = false;
+    public bool gameEnded = false;
     [HideInInspector]
     public bool hasActiveEnemy;
     private Enemy activeEnemy;
@@ -59,12 +59,19 @@ public class GameManager : MonoBehaviour {
 
     public static GameManager instance;
 
+    ObjectPooler objectPooler;
+
     void Start()
     {
         instance = this;
         enemies = new ArrayList();
         score.text = "0";
         isPaused = true;
+        objectPooler = ObjectPooler.Instance;
+        Time.timeScale = 1f;
+        isPaused = false;
+        gameEnded = false;
+        health = 100;
     }
 
     public void StartGame(float spawnDelay)
@@ -73,9 +80,6 @@ public class GameManager : MonoBehaviour {
         difficultyMenu.SetActive(false);
         overlayCanvas.SetActive(true);
         timeBefore = Time.time;
-        Time.timeScale = 1f;
-        isPaused = false;
-        gameEnded = false;
         StartCoroutine(WaitSpawn());
     }
 
@@ -83,7 +87,7 @@ public class GameManager : MonoBehaviour {
     {
         while (!gameEnded)
         {
-            Instantiate(enemy, spawnLocation, enemy.transform.rotation);
+            objectPooler.SpawnFromPool("Enemy", spawnLocation, Quaternion.identity);
 
             yield return new WaitForSeconds(spawnDelay);
         }

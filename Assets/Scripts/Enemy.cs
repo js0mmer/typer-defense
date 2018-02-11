@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IPooledObject
 {
     public float speed = 10f;
     public Text wordText;
@@ -12,9 +12,16 @@ public class Enemy : MonoBehaviour
     private Transform target;
     private int waypointIndex = 0;
 
+    private GameManager gameManager;
+
     void Start()
     {
-        word = GameManager.instance.RandomWord();
+    }
+
+    public void OnObjectSpawn()
+    {
+        gameManager = GameManager.instance;
+        word = gameManager.RandomWord();
         wordText.text = word;
 
         GameManager.instance.enemies.Add(this);
@@ -23,12 +30,15 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        Vector3 dir = target.position - transform.position;
-        transform.Translate(dir.normalized * speed * Time.deltaTime);
-
-        if (Vector3.Distance(transform.position, target.position) <= 0.2f)
+        if (gameObject.activeInHierarchy && !gameManager.gameEnded)
         {
-            GetNextWaypoint();
+            Vector3 dir = target.position - transform.position;
+            transform.Translate(dir.normalized * speed * Time.deltaTime);
+
+            if (Vector3.Distance(transform.position, target.position) <= 0.2f)
+            {
+                GetNextWaypoint();
+            }
         }
     }
 
@@ -45,7 +55,8 @@ public class Enemy : MonoBehaviour
                 GameManager.instance.hasActiveEnemy = false;
             }
 
-            Destroy(gameObject);
+            gameObject.SetActive(false);
+            Debug.Log(word.Length);
         }
         else
         {
